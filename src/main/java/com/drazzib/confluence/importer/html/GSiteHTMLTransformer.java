@@ -32,7 +32,7 @@ import java.nio.charset.Charset;
  *
  * @author Damien Raude-Morvan
  */
-public class GSiteHTMLParser {
+public class GSiteHTMLTransformer {
 
     public static final String SITES_GOOGLE_SITE = "https://sites.google.com/";
     /**
@@ -46,7 +46,7 @@ public class GSiteHTMLParser {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(GSiteHTMLParser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GSiteHTMLTransformer.class);
 
     public ConfluencePage parse(final InputStream is, final Charset charset) throws IOException {
         final Document doc = Jsoup.parse(is, charset.name(), SITES_GOOGLE_SITE);

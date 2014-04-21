@@ -18,7 +18,7 @@ package com.drazzib.confluence.importer;
 
 import com.beust.jcommander.JCommander;
 import com.drazzib.confluence.importer.html.ConfluencePageWriter;
-import com.drazzib.confluence.importer.html.GSiteHTMLParser;
+import com.drazzib.confluence.importer.html.GSiteHTMLTransformer;
 import com.drazzib.confluence.importer.model.ConfluencePage;
 import com.google.common.base.Charsets;
 import org.slf4j.Logger;
@@ -49,7 +49,7 @@ public class ConfluenceImporter {
         Path ouputPath = Paths.get(parameters.outputPath);
 
         ConverterFileVisitor converterFileVisitor = new ConverterFileVisitor();
-        GSiteHTMLParser gSiteParser = new GSiteHTMLParser();
+        GSiteHTMLTransformer gSiteParser = new GSiteHTMLTransformer();
         ConfluencePageWriter htmlWriter = new ConfluencePageWriter();
 
         // 1- Walk on all directory to find HTML files
