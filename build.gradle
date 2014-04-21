@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.6'
+    compile 'com.google.guava:guava:16.0.1'
+	compile 'org.jsoup:jsoup:1.7.3'
+    compile 'com.beust:jcommander:1.35'
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.assertj:assertj-core:1.5.0'
+}
