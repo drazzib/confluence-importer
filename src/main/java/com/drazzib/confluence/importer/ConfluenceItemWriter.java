@@ -14,7 +14,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.drazzib.confluence.importer.html;
+package com.drazzib.confluence.importer;
 
 import com.drazzib.confluence.importer.model.ConfluenceItem;
 

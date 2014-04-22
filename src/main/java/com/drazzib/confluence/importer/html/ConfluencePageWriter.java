@@ -16,6 +16,7 @@
  */
 package com.drazzib.confluence.importer.html;
 
+import com.drazzib.confluence.importer.ConfluenceItemWriter;
 import com.drazzib.confluence.importer.model.ConfluencePage;
 import com.google.common.base.Charsets;
 
@@ -30,21 +31,16 @@ public class ConfluencePageWriter implements ConfluenceItemWriter<ConfluencePage
 
     @Override
     public void write(final ConfluencePage item) throws IOException {
-        Path newLocation = item.getPath();
+        Path newLocation = item.getNewLocation();
         createAllDirectories(newLocation);
-        byte[] data = getRawData(item);
-        rawWrite(newLocation, data);
+        Files.write(newLocation, getRawData(item));
     }
 
-    private void rawWrite(Path newLocation, byte[] data) throws IOException {
-        Files.write(newLocation, data);
-    }
-
-    private byte[] getRawData(ConfluencePage page) {
+    private byte[] getRawData(final ConfluencePage page) {
         return page.getContent().outerHtml().getBytes(Charsets.UTF_8);
     }
 
-    private void createAllDirectories(Path newLocation) throws IOException {
+    private void createAllDirectories(final Path newLocation) throws IOException {
         Files.createDirectories(newLocation.getParent());
     }
 }

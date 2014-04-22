@@ -16,7 +16,7 @@
  */
 package com.drazzib.confluence.importer.parsers;
 
-import com.drazzib.confluence.importer.html.GSiteHTMLTransformer;
+import com.drazzib.confluence.importer.html.HTMLTransformer;
 import com.drazzib.confluence.importer.model.ConfluencePage;
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteSource;
@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by drazzib on 16/04/14.
  */
-public class GSiteHTMLTransformerTest {
+public class HTMLTransformerTest {
 
     @Test
     public void shouldParseGSiteFullPage() throws Exception {
@@ -40,7 +40,7 @@ public class GSiteHTMLTransformerTest {
         ByteSource expectedContentRes = asByteSource(getResource("expect_sample_gsite_content.html"));
 
         try (InputStream is = fullRes.openBufferedStream()) {
-            GSiteHTMLTransformer parser = new GSiteHTMLTransformer();
+            HTMLTransformer parser = new HTMLTransformer(null, null);
             ConfluencePage page = parser.parse(is, Charsets.UTF_8);
 
             assertThat(page.getTitle()).isEqualTo("Home");

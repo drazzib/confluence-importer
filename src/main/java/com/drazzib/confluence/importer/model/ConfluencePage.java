@@ -29,7 +29,7 @@ public class ConfluencePage implements ConfluenceItem {
 
     private String title;
 
-    private Path path;
+    private Path newLocation;
 
     public Element getContent() {
         return content;
@@ -47,11 +47,11 @@ public class ConfluencePage implements ConfluenceItem {
         this.title = title;
     }
 
-    public Path getPath() {
-        return path;
+    public Path getNewLocation() {
+        return newLocation;
     }
 
-    public void setPath(Path path) {
-        this.path = path;
+    public void setNewLocation(Path newLocation) {
+        this.newLocation = newLocation;
     }
 }
