@@ -22,6 +22,7 @@ import com.google.common.base.Charsets;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +32,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 
 /**
  * Simple JSoup parser which will create {@link com.drazzib.confluence.importer.model.ConfluencePage}.
@@ -68,9 +70,12 @@ public class HTMLTransformer {
         this.writer = new ConfluencePageWriter();
     }
 
-    public void transform(Path file) {
+    public void transform(final Path file) {
         try (InputStream is = Files.newInputStream(file)) {
-            ConfluencePage page = this.parse(is, Charsets.UTF_8);
+            ConfluencePage page = parse(is, Charsets.UTF_8);
+
+            // Transform some content
+            transformHTMLContent(page);
 
             // 3- Compute new path for Confluence file storage.
             Path newPath = transformPagePath(inPath, outPath, file);
@@ -112,5 +117,24 @@ public class HTMLTransformer {
         Path newPath = Paths.get(outPath.toString(), parentDir.toString(), fileName);
         LOGGER.trace("Output file {}", newPath);
         return newPath;
+    }
+
+    private void transformHTMLContent(final ConfluencePage page) {
+        // Replace all "imageanchor" with "ac:image"
+        Elements allImageLinks = page.getContent().select("a[imageanchor]");
+        Iterator<Element> iterator = allImageLinks.iterator();
+        while (iterator.hasNext()) {
+            Element imageLink = iterator.next();
+            Element parent = imageLink.parent();
+
+            String src = imageLink.select("img").attr("src");
+            String imageFile = src.substring(src.lastIndexOf('/') + 1);
+
+            // Remove old HTML
+            imageLink.remove();
+
+            // Append new HTML content (Confluence compliant)
+            parent.html("<ac:image><ri:attachment ri:filename=\"" + imageFile + "\" /></ac:image>");
+        }
     }
 }
