@@ -16,8 +16,30 @@
  */
 package com.drazzib.confluence.importer.model;
 
+import java.nio.file.Path;
+
 /**
  * @author Damien Raude-Morvan
  */
-public class BinaryAttachment implements ConfluenceItem {
+public class BinaryItem implements ConfluenceItem {
+
+    private byte[] data;
+
+    private Path newLocation;
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public Path getNewLocation() {
+        return newLocation;
+    }
+
+    public void setNewLocation(Path newLocation) {
+        this.newLocation = newLocation;
+    }
 }
